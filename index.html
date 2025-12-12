@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CitaSmile - Clínica Dental</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #5ED4E8;
+            --primary-dark: #4bbbd0;
+            --text-color: #333;
+            --light-bg: #F4F9FB;
+            --white: #ffffff;
+            --gray-text: #666;
+            --shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--white);
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- BOTONES --- */
+        .btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 50px; /* Más moderno redondeado */
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
+            box-shadow: 0 4px 6px rgba(94, 212, 232, 0.3);
+        }
+        .btn:hover { 
+            background-color: var(--primary-dark); 
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background: var(--white);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -1px;
+        }
+
+        nav ul { display: flex; gap: 30px; }
+        nav ul li a { font-weight: 600; color: #555; font-size: 14px; text-transform: uppercase; }
+        nav ul li a:hover { color: var(--primary-color); }
+
+        /* --- SECCIONES GENERALES --- */
+        section { padding: 80px 5%; }
+        
+        .section-title {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        /* --- HERO --- */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--light-bg);
+            min-height: 90vh;
+            gap: 40px;
+        }
+
+        .hero-text { flex: 1; }
+        .hero-text h1 { font-size: 52px; line-height: 1.1; margin-bottom: 25px; color: #222; }
+        .hero-text h1 span { color: var(--primary-color); }
+        .hero-text p { font-size: 18px; margin-bottom: 30px; color: var(--gray-text); max-width: 500px; }
+
+        .hero-image { flex: 1; display: flex; justify-content: center; }
+        .hero-image img {
+            width: 100%;
+            max-width: 550px;
+            height: 400px;
+            object-fit: cover; /* Recorta la imagen para que llene el espacio sin estirarse */
+            border-radius: 30px 0 30px 0;
+            box-shadow: var(--shadow);
+        }
+
+        /* --- SOBRE NOSOTROS --- */
+        .about { display: flex; align-items: center; gap: 60px; background: var(--white); }
+        .about-img { flex: 1; }
+        .about-img img { 
+            width: 100%; 
+            height: 400px; 
+            object-fit: cover; 
+            border-radius: 20px; 
+            box-shadow: var(--shadow);
+        }
+        .about-text { flex: 1; }
+        .about-text h4 { color: var(--primary-color); font-weight: 700; letter-spacing: 1px; margin-bottom: 10px; }
+        .about-text h2 { font-size: 32px; margin-bottom: 20px; color: #222; line-height: 1.2; }
+        .about-text p { margin-bottom: 25px; color: var(--gray-text); text-align: justify; }
+
+        /* --- POR QUE ELEGIRNOS --- */
+        .why-choose { display: flex; gap: 60px; background: var(--light-bg); }
+        .why-text { flex: 0.8; }
+        .why-text ul { margin: 30px 0; }
+        .why-text ul li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-weight: 500; }
+        .why-text ul li i { color: var(--primary-color); background: white; padding: 8px; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+
+        .why-cards { flex: 1.2; display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+        .feature-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            transition: 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        .feature-card:hover { transform: translateY(-5px); border-bottom: 3px solid var(--primary-color); }
+        .feature-card i { font-size: 32px; color: var(--primary-color); margin-bottom: 15px; display: block; }
+        .feature-card h4 { font-size: 18px; margin-bottom: 10px; color: #333; }
+        .feature-card p { font-size: 14px; color: #666; line-height: 1.5; }
+
+        /* --- SERVICIOS (Grid Mejorado) --- */
+        .services { background: var(--white); }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive automático */
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card:hover { transform: translateY(-10px); }
+
+        .service-card img {
+            width: 100%;
+            height: 220px; /* Altura fija para uniformidad */
+            object-fit: cover; /* Evita deformación */
+        }
+
+        .service-content { padding: 20px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .service-card h3 { margin-bottom: 15px; font-size: 20px; color: #333; }
+
+        /* --- PROFESIONALES --- */
+        .team { background: var(--light-bg); }
+        .team-grid {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .team-member { text-align: center; max-width: 250px; }
+        
+        .team-img-wrapper {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 5px solid var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .team-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Asegura que la cara llene el círculo */
+            object-position: top center; /* Centra la imagen en la parte superior (caras) */
+        }
+
+        .team-member h3 { font-size: 16px; font-weight: 700; color: #333; margin-top: 10px; }
+
+        /* --- RESULTADOS (Imágenes lado a lado) --- */
+        .results { background: var(--white); }
+        .results-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        .result-img {
+            width: 100%;
+            height: 350px; /* Altura uniforme */
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: 0.3s;
+        }
+        .result-img:hover { transform: scale(1.02); }
+
+        /* --- FORMULARIO CITA --- */
+        .appointment-section {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, #ffffff 50%, #f4f9fb 50%);
+        }
+
+        .appointment-form-container {
+            background-color: #8FD8E6;
+            padding: 50px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(94, 212, 232, 0.4);
+        }
+
+        .appointment-form-container h2 { color: white; margin-bottom: 30px; font-size: 32px; }
+        
+        .appt-input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.9);
+            font-size: 15px;
+            color: #333;
+        }
+        .appt-input:focus { outline: 2px solid var(--primary-dark); background: white; }
+        
+        .label-text { display: block; text-align: left; color: white; font-weight: 600; margin-bottom: 5px; font-size: 14px; margin-left: 5px;}
+
+        .btn-submit-appt {
+            background-color: var(--primary-dark);
+            color: white;
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            border: none;
+            font-size: 16px;
+            border-radius: 8px;
+        }
+        .btn-submit-appt:hover { background-color: #3aaec4; }
+
+        /* --- CONTACTO --- */
+        .contact { background: var(--light-bg); }
+        .contact-content { display: flex; gap: 60px; margin-top: 40px; }
+        .contact-info { flex: 1; }
+        
+        .info-item { display: flex; gap: 20px; margin-bottom: 30px; align-items: flex-start; }
+        .info-item i { font-size: 22px; color: var(--primary-color); background: white; padding: 12px; border-radius: 50%; box-shadow: 0 2px 10px rgba(0,0,0,0.05); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;}
+        
+        .social-icons i { font-size: 24px; margin-right: 15px; cursor: pointer; transition: 0.3s; color: #555; }
+        .social-icons i:hover { color: var(--primary-color); transform: scale(1.2); }
+
+        .contact-form-wrapper {
+            flex: 1;
+            background: #9DE0ED;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+        
+        .contact-form-wrapper input, .contact-form-wrapper textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #333;
+            color: #bbb;
+            font-size: 13px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .hero, .about, .why-choose, .contact-content { flex-direction: column; text-align: center; }
+            .hero-text { padding-right: 0; }
+            .hero-text h1 { font-size: 40px; }
+            .hero-image img, .about-img img { max-width: 100%; height: auto; }
+            .why-cards { grid-template-columns: 1fr; }
+            nav { display: none; } /* Ocultar menú simple en móvil para simplificar */
+            .contact-row { flex-direction: column; }
+            .info-item { justify-content: center; text-align: left; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-tooth"></i> CITASMILE
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#hero">Inicio</a></li>
+                <li><a href="#services">Servicios</a></li>
+                <li><a href="#team">Profesionales</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+        </nav>
+        <button class="btn" onclick="scrollToAppt()">Agendar Consulta</button>
+    </header>
+
+    <section class="hero" id="hero">
+        <div class="hero-text">
+            <h1>Tu <span>SONRISA</span>, tu<br>mejor<br><span>PRESENTACIÓN</span></h1>
+            <p>Cuida tu salud dental con tratamientos personalizados, un equipo experto y la mejor tecnología disponible en el mercado.</p>
+            <button class="btn" onclick="scrollToAppt()">Agendar Consulta</button>
+        </div>
+        <div class="hero-image">
+            <img src="Estetica-dental-las-palmas.jpg" alt="Sonrisa CitaSmile">
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="about-img">
+            <img src="Clinica-dental-zaidin-1.jpg" alt="Sobre Nosotros">
+        </div>
+        <div class="about-text">
+            <h4>SOBRE NOSOTROS</h4>
+            <h2>¿Quiénes somos?</h2>
+            <p>En CitaSmile, somos un equipo comprometido con la innovación y el bienestar dental. Nacimos con la misión de transformar la experiencia entre pacientes y dentistas, ofreciendo soluciones digitales que simplifican la gestión de citas y mejoran la comunicación.</p>
+            <button class="btn">Conócenos Aquí</button>
+        </div>
+    </section>
+
+    <section class="why-choose" id="why-us">
+        <div class="why-text">
+            <h2>¿Por qué elegir CITASMILE?</h2>
+            <p style="margin-bottom: 25px;">Transformamos la atención dental con herramientas digitales que mejoran tu experiencia. Nuestra plataforma está diseñada para brindar eficiencia y confianza.</p>
+            <ul>
+                <li><i class="fa-solid fa-check"></i> Personal altamente calificado.</li>
+                <li><i class="fa-solid fa-check"></i> Tecnología avanzada de diagnóstico.</li>
+                <li><i class="fa-solid fa-check"></i> Instalaciones cómodas y seguras.</li>
+                <li><i class="fa-solid fa-check"></i> Atención personalizada y amable.</li>
+            </ul>
+            <br>
+            <button class="btn">Ver Más</button>
+        </div>
+        <div class="why-cards">
+            <div class="feature-card">
+                <i class="fa-solid fa-heart"></i>
+                <h4>Resultados Naturales</h4>
+                <p>Técnicas estéticas avanzadas para una sonrisa armoniosa.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-file-medical"></i>
+                <h4>Tratamientos Personalizados</h4>
+                <p>Plan adaptado a tus necesidades y presupuesto.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-lightbulb"></i>
+                <h4>Innovación Constante</h4>
+                <p>Materiales de última generación garantizados.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-user-doctor"></i>
+                <h4>Compromiso y Bienestar</h4>
+                <p>Mejoramos tu salud y tu autoestima.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <h2 class="section-title">Nuestros Servicios</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <img src="blanque.jfif" alt="Blanqueamiento">
+                <div class="service-content">
+                    <h3>Blanqueamiento</h3>
+                    <button class="btn-outline">Más información</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="limpliezadenta.jfif" alt="Limpieza">
+                <div class="service-content">
+                    <h3>Limpieza dental</h3>
+                    <button class="btn-outline">Más información</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="ortodonc.jfif" alt="Ortodoncia">
+                <div class="service-content">
+                    <h3>Ortodoncia</h3>
+                    <button class="btn-outline">Más información</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="endodonc.png" alt="Endodoncia">
+                <div class="service-content">
+                    <h3>Endodoncia</h3>
+                    <button class="btn-outline">Más información</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="carillas.jfif" alt="Carillas">
+                <div class="service-content">
+                    <h3>Carillas</h3>
+                    <button class="btn-outline">Más información</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="exodonc.jfif" alt="Exodoncia">
+                <div class="service-content">
+                    <h3>Exodoncia</h3>
+                    <button class="btn-outline">Más información</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="cirugiaden.jfif" alt="Cirugia">
+                <div class="service-content">
+                    <h3>Cirugía dental</h3>
+                    <button class="btn-outline">Más información</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="restaurac.webp" alt="Restauracion">
+                <div class="service-content">
+                    <h3>Restauración</h3>
+                    <button class="btn-outline">Más información</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="team" id="team">
+        <h2 class="section-title">Nuestro Equipo Médico</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="team-img-wrapper">
+                    <img src="doctor-woman-with-stethoscope-keeping-the-arms-crossed-on-isolated-transparent-background-png.png" alt="Dra. Victoria">
+                </div>
+                <h3>Dra. Victoria Talavera</h3>
+            </div>
+            <div class="team-member">
+                <div class="team-img-wrapper">
+                    <img src="pngtree-portrait-of-a-smiling-handsome-male-doctor-man-png-image_11398211.png" alt="Dr. Milad">
+                </div>
+                <h3>Dr. Milad Shadrooh</h3>
+            </div>
+            <div class="team-member">
+                <div class="team-img-wrapper">
+                    <img src="pngtree-photo-men-doctor-physician-chest-smiling-png-image_13143575.png" alt="Dr. Esteban">
+                </div>
+                <h3>Dr. Esteban Pérez</h3>
+            </div>
+        </div>
+    </section>
+    
+    <section class="results">
+        <h2 class="section-title">Resultados Reales</h2>
+        <div class="results-container">
+             <img src="Estetica-dental-las-palmas.jpg" class="result-img" alt="Caso Antes y Después">
+            <img src="Estetica-dental-las-palmas.jpg" class="result-img" alt="Caso Sonrisa">
+        </div>
+    </section>
+
+    <section class="appointment-section" id="appointment">
+        <div class="appointment-form-container">
+            <h2>Agende su Cita</h2>
+            <form id="citaForm">
+                <div style="display: flex; gap: 10px;">
+                    <div style="flex:1;">
+                        <label class="label-text">Nombres</label>
+                        <input type="text" class="appt-input" required>
+                    </div>
+                    <div style="flex:1;">
+                        <label class="label-text">Apellidos</label>
+                        <input type="text" class="appt-input" required>
+                    </div>
+                </div>
+
+                <label class="label-text">Teléfono</label>
+                <input type="tel" class="appt-input" required>
+
+                <label class="label-text">Correo Electrónico</label>
+                <input type="email" class="appt-input" required>
+
+                <div style="display: flex; gap: 10px;">
+                    <div style="flex:1;">
+                        <label class="label-text">Fecha</label>
+                        <input type="date" class="appt-input" required>
+                    </div>
+                    <div style="flex:1;">
+                        <label class="label-text">Especialidad</label>
+                        <select class="appt-input">
+                            <option>General</option>
+                            <option>Ortodoncia</option>
+                            <option>Estética</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-submit-appt">Confirmar Cita</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2 class="section-title">Contáctanos</h2>
+        <p style="text-align: center; margin-bottom: 40px;">Estamos aquí para apoyarte. Escríbenos para cualquier consulta.</p>
+
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="info-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <strong>Dirección</strong><br> Calle Vista Alegre, 13. 12345 Perú
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <div>
+                        <strong>Teléfono</strong><br> +51 945 212 866
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fa-regular fa-envelope"></i>
+                    <div>
+                        <strong>Email</strong><br> CitaSmile@gmail.com
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fa-regular fa-calendar"></i>
+                    <div>
+                        <strong>Horario</strong><br> Lunes a Viernes: 8:00 AM - 4:00 PM
+                    </div>
+                </div>
+
+                <div class="social-icons">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <i class="fa-brands fa-facebook"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-google"></i>
+                </div>
+            </div>
+
+            <div class="contact-form-wrapper">
+                <h3 style="color:white; margin-bottom:20px;">Envíanos un mensaje</h3>
+                <form id="contactForm">
+                    <div class="contact-row">
+                        <div style="flex:1;">
+                            <label style="color:white; font-size:13px; font-weight:bold;">Nombre</label>
+                            <input type="text" placeholder="Tu nombre">
+                        </div>
+                        <div style="flex:1;">
+                            <label style="color:white; font-size:13px; font-weight:bold;">Email</label>
+                            <input type="email" placeholder="tucorreo@email.com">
+                        </div>
+                    </div>
+                    
+                    <label style="color:white; font-size:13px; font-weight:bold; display:block; margin-top: 10px;">Asunto</label>
+                    <input type="text" placeholder="Motivo de consulta">
+
+                    <label style="color:white; font-size:13px; font-weight:bold; display:block; margin-top: 10px;">Mensaje</label>
+                    <textarea rows="4" placeholder="Escribe tu mensaje aquí..."></textarea>
+
+                    <button type="submit" class="btn" style="background: #4BC9E3; border: 2px solid white; margin-top: 15px; width: 100%;">Enviar Mensaje</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 CitaSmile - Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        function scrollToAppt() {
+            document.getElementById('appointment').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        document.getElementById('citaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Gracias! Tu solicitud de cita ha sido recibida correctamente.');
+            this.reset();
+        });
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Mensaje enviado. Te responderemos a la brevedad.');
+            this.reset();
+        });
+    </script>
+
+</body>
+</html>
